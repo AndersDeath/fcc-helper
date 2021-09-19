@@ -1,13 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FreeCodeCamp Helper page</title>
     <script src="./script.js"></script>
-</head>
-<body>
-    
-</body>
+    <link rel="stylesheet" href="./style.css" />
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        FH.init([
+          {
+            title: "Project on FreeCodeCamp.org",
+            href: "https://www.freecodecamp.org/learn/responsive-web-design/responsive-web-design-projects/build-a-tribute-page",
+            target: "_blank",
+          },
+          {
+            title: "My Github Project",
+            href: "https://github.com/AndersDeath/fcc-tribute-page",
+            target: "_blank",
+          },
+        ]);
+
+        FH.loadFccTests();
+      });
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <header>This is fccHelper</header>
+    </div>
+  </body>
 </html>
