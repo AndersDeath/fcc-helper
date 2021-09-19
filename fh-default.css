@@ -1,8 +1,8 @@
 .fh-main {
     position: fixed;
-    top: 0;
     z-index: 99;
     right: 0;
+    bottom: 0;
     background: #fff;
     border: 1px solid #000;
     padding: 10px;

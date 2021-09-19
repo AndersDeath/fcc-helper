@@ -93,10 +93,44 @@
          */
         init(linkList) {
             this.loadTheme();
-            let output = `<div class="fh-main">${linkList.map((el) => `${createLine(el.title, el.href, el.target)}`).join('')}`;
-            document.querySelector('body').appendChild(domFromString(output));
+
+            const main = document.createElement('div');
+            main.classList.add('fh-main');
+
+            const testsCheckboxDiv = document.createElement('div');
+            testsCheckboxDiv.classList.add('fh-tests-checkbox');
+
+            const testsCheckboxInput = document.createElement('input');
+            testsCheckboxInput.setAttribute('type', 'checkbox');
+            testsCheckboxInput.setAttribute('id', 'fcc-tests');
+            testsCheckboxInput.setAttribute('name', 'fcc-tests');
+            testsCheckboxInput.setAttribute('value', 'fcc-tests');
+            testsCheckboxInput.addEventListener('change', (el) => {
+                if(el.target.checked) {
+                    this.loadFccTests();
+                } else {
+                    this.unloadFccTests();
+                }
+            })
+            const testsCheckboxLabel= document.createElement('label');
+            testsCheckboxLabel.setAttribute('for', 'fcc-tests');
+            testsCheckboxLabel.innerText = 'Show tests'
+
+            linkList.map((el) => {
+                main.appendChild(domFromString(createLine(el.title, el.href, el.target)));
+            });
+            testsCheckboxDiv.appendChild(document.createElement('hr'));
+            testsCheckboxDiv.appendChild(testsCheckboxInput);
+            testsCheckboxDiv.appendChild(testsCheckboxLabel);
+            main.appendChild(testsCheckboxDiv)
+            document.querySelector('body').appendChild(main);
+
         }
 
+        /**
+         * Load css theme for utility
+         * @param {String} url theme address
+         */
         loadTheme(url = 'default') {
             if(url === 'default') {
                 const host = window.location.host;
