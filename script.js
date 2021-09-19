@@ -7,6 +7,11 @@
 (() => {
 
     /**
+     * Library host url
+     */
+    const hostUrl = 'https://andersdeath.github.io/fcc-helper/';
+
+    /**
      * 
      * @param {String} html  html string
      * @returns {Object} DOM element
@@ -25,15 +30,11 @@
      * @returns {String}
      */
     function createLine(title, href, target = '_self') {
-        return `<div><a 
-            style="
-                color: #000;
-            "
-        target="${target}" href="${href}">${title}</a></div>`
+        return `<div><a class="fh-link" target="${target}" href="${href}">${title}</a></div>`
     }
 
     /**
-     * 
+     * Load remote JavaScript file by url
      * @param {String} url remote script address
      * @param {String} id script tag id
      */
@@ -41,6 +42,19 @@
         const el = document.createElement('script');
         id !== undefined ? el.setAttribute('id', id) : null;
         el.setAttribute('src', url);
+        document.body.appendChild(el);
+    }
+
+    /**
+     * Load remote stylesheet by url
+     * @param {String} url remote stylesheet address
+     * @param {String} id 
+     */
+    function loadRemoteStyleByUrl(url, id) {
+        const el = document.createElement('link');
+        id !== undefined ? el.setAttribute('id', id) : null;
+        el.setAttribute('href', url);
+        el.setAttribute('rel', 'stylesheet');
         document.body.appendChild(el);
     }
 
@@ -78,22 +92,22 @@
          * @param {Object} linkList link list
          */
         init(linkList) {
-            let output = `<div
-            style="
-                position: fixed;
-                top: 0;
-                z-index: 99;
-                right: 0;
-                background: #fff;
-                border: 1px solid #000;
-                padding: 10px;
-            "
-            >`;
-            linkList.forEach((el) => {
-                output += createLine(el.title, el.href, el.target)
-            });
-            output += "</div>";
+            this.loadTheme();
+            let output = `<div class="fh-main">${linkList.map((el) => `${createLine(el.title, el.href, el.target)}`).join('')}`;
             document.querySelector('body').appendChild(domFromString(output));
+        }
+
+        loadTheme(url = 'default') {
+            if(url === 'default') {
+                const host = window.location.host;
+                if(host.indexOf('127.0.0.1') || host.indexOf('localhost')) {
+                    loadRemoteStyleByUrl('./fh-default.css');
+                } else {
+                    loadRemoteStyleByUrl(hostUrl + 'fh-default.css');
+                }
+            } else {
+                loadRemoteStyleByUrl(url);
+            }
         }
 
         /**
