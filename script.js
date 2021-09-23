@@ -83,6 +83,19 @@
     }
 
     /**
+     * 
+     * @param {Object} target target DOM object
+     * @param {Objcet} attrs object with attrs data
+     * @returns 
+     */
+    function setAttrs(target, attrs) {
+        for (let index = 0; index < attrs.length; index++) {
+            target.setAttribute(attrs[index].prop, attrs[index].val);
+        }
+        return target;
+    }
+
+    /**
      * FreeCodeCamp Helper Class
      */
     class FH {
@@ -100,11 +113,30 @@
             const testsCheckboxDiv = document.createElement('div');
             testsCheckboxDiv.classList.add('fh-tests-checkbox');
 
-            const testsCheckboxInput = document.createElement('input');
-            testsCheckboxInput.setAttribute('type', 'checkbox');
-            testsCheckboxInput.setAttribute('id', 'fcc-tests');
-            testsCheckboxInput.setAttribute('name', 'fcc-tests');
-            testsCheckboxInput.setAttribute('value', 'fcc-tests');
+            let testsCheckboxInput = document.createElement('input');
+
+            const fccTestId = 'fcc-tests';
+            const fccTestAttrs = [
+                {
+                    prop: 'type',
+                    val: 'checkbox'
+                },
+                {
+                    prop: 'id',
+                    val: fccTestId
+                }
+                ,
+                {
+                    prop: 'name',
+                    val: fccTestId
+                },
+                {
+                    prop: 'value',
+                    val: fccTestId
+                }
+            ];
+            
+            testsCheckboxInput = setAttrs(testsCheckboxInput, fccTestAttrs);
             testsCheckboxInput.addEventListener('change', (el) => {
                 if(el.target.checked) {
                     this.loadFccTests();
@@ -114,7 +146,7 @@
             })
             const testsCheckboxLabel= document.createElement('label');
             testsCheckboxLabel.setAttribute('for', 'fcc-tests');
-            testsCheckboxLabel.innerText = 'Show tests'
+            testsCheckboxLabel.innerText = 'Show tests';
 
             linkList.map((el) => {
                 main.appendChild(domFromString(createLine(el.title, el.href, el.target)));
@@ -124,7 +156,6 @@
             testsCheckboxDiv.appendChild(testsCheckboxLabel);
             main.appendChild(testsCheckboxDiv)
             document.querySelector('body').appendChild(main);
-
         }
 
         /**
