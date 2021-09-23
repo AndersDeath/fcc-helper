@@ -176,15 +176,11 @@
          * Build test checkbox input
          * @returns DOM Object
          */
-        buildTestsCheckboxInput() {
+        buildTestsCheckboxInput(changeCallback) {
             let testsCheckboxInput = document.createElement('input');
             testsCheckboxInput = setAttrs(testsCheckboxInput, this.fccTestAttrs);
             testsCheckboxInput.addEventListener('change', (el) => {
-                if(el.target.checked) {
-                    this.loadFccTests();
-                } else {
-                    this.unloadFccTests();
-                }
+                changeCallback(el);
             });
             return testsCheckboxInput;
         }
@@ -218,7 +214,13 @@
 
             const main = elementsBuilder.buildMainDiv()
             let testsCheckboxDiv = elementsBuilder.buildTestsCheckboxDiv(); 
-            let testsCheckboxInput = elementsBuilder.buildTestsCheckboxInput();
+            let testsCheckboxInput = elementsBuilder.buildTestsCheckboxInput((el) => {
+                if(el.target.checked) {
+                    this.loadFccTests();
+                } else {
+                    this.unloadFccTests();
+                }
+            });
             const testsCheckboxLabel= elementsBuilder.buildTestsCheckboxLabel();
 
             linkList.map((el) => {
