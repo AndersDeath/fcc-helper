@@ -1,7 +1,7 @@
 /**
  * FH utility 
  * @author Vladimir Bolshakov <AndersDeath>
- * @version 0.0.1
+ * @version 0.1.0
  */
 
 (() => {
@@ -75,6 +75,18 @@
     }
 
     /**
+     * Load default css
+     */
+    function loadDefaultCss() {
+        const host = window.location.host;
+        if(host.indexOf('127.0.0.1') || host.indexOf('localhost')) {
+            loadRemoteStyleByUrl('./fh-default.css');
+        } else {
+            loadRemoteStyleByUrl(hostUrl + 'fh-default.css');
+        }
+    }
+
+    /**
      * Unload FreeCodeCamp tests
      */
     function unloadFccTest() {
@@ -96,6 +108,101 @@
     }
 
     /**
+     * 
+     * @param {Object} target target DOM object
+     * @param {Object} childs object with sequence of childs
+     * @returns 
+     */
+    function appendChilds(target, childs) {
+        for (let index = 0; index < childs.length; index++) {
+            target.appendChild(childs[index]);
+        }
+        return target;
+    }
+
+    /**
+     * FccHelper DOM Elements Builder class
+     */
+    class ElementsBuilder {
+        /**
+         * checkbox Input name
+         */
+        fccTestId = 'fcc-tests';
+
+        /**
+         * Checkbox Input attrs
+         */
+        fccTestAttrs = [
+            {
+                prop: 'type',
+                val: 'checkbox'
+            },
+            {
+                prop: 'id',
+                val: this.fccTestId
+            }
+            ,
+            {
+                prop: 'name',
+                val: this.fccTestId
+            },
+            {
+                prop: 'value',
+                val: this.fccTestId
+            }
+        ];
+
+        /**
+         * Build Main Div
+         * @returns DOM object
+         */
+        buildMainDiv() {
+            const main = document.createElement('div');
+            main.classList.add('fh-main');
+            return main;
+        }
+
+        /**
+         * Build Test checkbox div
+         * @returns DOM Object
+         */
+        buildTestsCheckboxDiv() {
+            let testsCheckboxDiv =  document.createElement('div');
+            testsCheckboxDiv.classList.add('fh-tests-checkbox');
+            return testsCheckboxDiv;
+        }
+
+        /**
+         * Build test checkbox input
+         * @returns DOM Object
+         */
+        buildTestsCheckboxInput() {
+            let testsCheckboxInput = document.createElement('input');
+            testsCheckboxInput = setAttrs(testsCheckboxInput, this.fccTestAttrs);
+            testsCheckboxInput.addEventListener('change', (el) => {
+                if(el.target.checked) {
+                    this.loadFccTests();
+                } else {
+                    this.unloadFccTests();
+                }
+            });
+            return testsCheckboxInput;
+        }
+
+        /**
+         * Build trst checkbox label
+         * @returns DOM object
+         */
+        buildTestsCheckboxLabel() {
+            const testsCheckboxLabel= document.createElement('label');
+            testsCheckboxLabel.setAttribute('for', 'fcc-tests');
+            testsCheckboxLabel.innerText = 'Show tests';
+            return testsCheckboxLabel;
+        }
+
+    }
+
+    /**
      * FreeCodeCamp Helper Class
      */
     class FH {
@@ -105,55 +212,24 @@
          * @param {Object} linkList link list
          */
         init(linkList) {
+
+            const elementsBuilder = new ElementsBuilder();
             this.loadTheme();
 
-            const main = document.createElement('div');
-            main.classList.add('fh-main');
-
-            const testsCheckboxDiv = document.createElement('div');
-            testsCheckboxDiv.classList.add('fh-tests-checkbox');
-
-            let testsCheckboxInput = document.createElement('input');
-
-            const fccTestId = 'fcc-tests';
-            const fccTestAttrs = [
-                {
-                    prop: 'type',
-                    val: 'checkbox'
-                },
-                {
-                    prop: 'id',
-                    val: fccTestId
-                }
-                ,
-                {
-                    prop: 'name',
-                    val: fccTestId
-                },
-                {
-                    prop: 'value',
-                    val: fccTestId
-                }
-            ];
-            
-            testsCheckboxInput = setAttrs(testsCheckboxInput, fccTestAttrs);
-            testsCheckboxInput.addEventListener('change', (el) => {
-                if(el.target.checked) {
-                    this.loadFccTests();
-                } else {
-                    this.unloadFccTests();
-                }
-            })
-            const testsCheckboxLabel= document.createElement('label');
-            testsCheckboxLabel.setAttribute('for', 'fcc-tests');
-            testsCheckboxLabel.innerText = 'Show tests';
+            const main = elementsBuilder.buildMainDiv()
+            let testsCheckboxDiv = elementsBuilder.buildTestsCheckboxDiv(); 
+            let testsCheckboxInput = elementsBuilder.buildTestsCheckboxInput();
+            const testsCheckboxLabel= elementsBuilder.buildTestsCheckboxLabel();
 
             linkList.map((el) => {
                 main.appendChild(domFromString(createLine(el.title, el.href, el.target)));
             });
-            testsCheckboxDiv.appendChild(document.createElement('hr'));
-            testsCheckboxDiv.appendChild(testsCheckboxInput);
-            testsCheckboxDiv.appendChild(testsCheckboxLabel);
+
+            testsCheckboxDiv = appendChilds(testsCheckboxDiv, [
+                document.createElement('hr'),
+                testsCheckboxInput,
+                testsCheckboxLabel
+            ]);
             main.appendChild(testsCheckboxDiv)
             document.querySelector('body').appendChild(main);
         }
@@ -164,12 +240,7 @@
          */
         loadTheme(url = 'default') {
             if(url === 'default') {
-                const host = window.location.host;
-                if(host.indexOf('127.0.0.1') || host.indexOf('localhost')) {
-                    loadRemoteStyleByUrl('./fh-default.css');
-                } else {
-                    loadRemoteStyleByUrl(hostUrl + 'fh-default.css');
-                }
+                loadDefaultCss();
             } else {
                 loadRemoteStyleByUrl(url);
             }
