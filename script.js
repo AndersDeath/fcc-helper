@@ -226,9 +226,8 @@
             linkList.map((el) => {
                 main.appendChild(domFromString(createLine(el.title, el.href, el.target)));
             });
-
+            main.appendChild(document.createElement('hr'));
             testsCheckboxDiv = appendChilds(testsCheckboxDiv, [
-                document.createElement('hr'),
                 testsCheckboxInput,
                 testsCheckboxLabel
             ]);
