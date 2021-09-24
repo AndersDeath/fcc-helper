@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "target": "ES5",
+      "module": "amd",
+      "lib": ["es5", "es6", "dom"],
+      "removeComments": true,
+      "preserveConstEnums": true,
+      "outFile": "./dist/fh.js",
+      "sourceRoot": "./src/",
+      "rootDir": "./src/",
+      "sourceMap": true
+    }
+  }

@@ -50,7 +50,7 @@
      * @param {String} url remote stylesheet address
      * @param {String} id 
      */
-    function loadRemoteStyleByUrl(url, id) {
+    function loadRemoteStyleByUrl(url, id?) {
         const el = document.createElement('link');
         id !== undefined ? el.setAttribute('id', id) : null;
         el.setAttribute('href', url);
@@ -264,6 +264,6 @@
     /**
      * Attach new instance of FH class to window object by FH and FccHelper names
      */
-    window.FH = window.FccHelper = new FH();
+    window['FH'] = window['FccHelper'] = new FH();
 })();
 

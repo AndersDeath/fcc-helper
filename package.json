@@ -1,0 +1,27 @@
+{
+  "name": "fcc-helper",
+  "version": "0.1.0",
+  "description": "FreeCodeCamp helper",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx webpack",
+    "purge:all": "sudo rm -R node_modules && sudo rm -R build",
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndersDeath/fcc-helper.git"
+  },
+  "author": "Vladimir Bolshakov <AndersDeath>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AndersDeath/fcc-helper/issues"
+  },
+  "homepage": "https://github.com/AndersDeath/fcc-helper#readme",
+  "devDependencies": {
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.4.3",
+    "webpack": "^5.53.0",
+    "webpack-cli": "^4.8.0"
+  }
+}
