@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx webpack",
-    "purge:all": "sudo rm -R node_modules && sudo rm -R build",
+    "remove:build": "rm -R ./build",
+    "purge:all": "sudo rm -R node_modules && sudo rm -R build"
   },
   "repository": {
     "type": "git",

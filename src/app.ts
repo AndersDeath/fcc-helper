@@ -1,3 +1,5 @@
+    import { domFromString  } from "./DomManLib";
+
 /**
  * FH utility 
  * @author Vladimir Bolshakov <AndersDeath>
@@ -11,16 +13,7 @@
      */
     const hostUrl = 'https://andersdeath.github.io/fcc-helper/';
 
-    /**
-     * 
-     * @param {String} html  html string
-     * @returns {Object} DOM element
-     */
-    function domFromString(html) {
-        const container = document.createElement('template');
-        container.innerHTML = html.trim();
-        return container.content.firstChild;
-    }
+
 
     /**
      * 
