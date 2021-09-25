@@ -28,7 +28,7 @@ function loadDefaultCss() {
     if (host.indexOf('127.0.0.1') || host.indexOf('localhost')) {
         loadRemoteStyleByUrl(`./fh-default.css`);
     } else {
-        loadRemoteStyleByUrl(hostUrl + `fh-default-${LIB_VERSION}.css`);
+        loadRemoteStyleByUrl(hostUrl + `/fh-default-${LIB_VERSION}.css`);
     }
 }
 

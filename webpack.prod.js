@@ -8,7 +8,7 @@ module.exports = {
     main: "./src/index.ts",
   },
   output: {
-    path: path.resolve(__dirname, `./dist/${package.version}`),
+    path: path.resolve(__dirname, `./dist`),
     filename: `fh-${package.version}.js`
   },
   resolve: {
@@ -27,7 +27,7 @@ module.exports = {
     patterns: [
       {
         from: path.resolve(__dirname, "fh-default.css"),
-        to: path.resolve(__dirname, `./dist/${package.version}/fh-default-${package.version}.css`),
+        to: path.resolve(__dirname, `./dist/fh-default-${package.version}.css`),
       },
     ],
   })

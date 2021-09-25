@@ -1,4 +1,4 @@
 /**
 * Library host url
 */
-export const hostUrl = 'https://andersdeath.github.io/fcc-helper/';
+export const hostUrl = 'https://andersdeath.ru/libs';
