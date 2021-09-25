@@ -1,5 +1,7 @@
 import { loadRemoteScriptByUrl, loadRemoteStyleByUrl, removeElementFromDOM } from './DomManLib';
 import { hostUrl } from './constants';
+import { LIB_VERSION } from './version';
+
 /**
   * 
   * @param {String} title Link title
@@ -24,9 +26,9 @@ function loadFccTests() {
 function loadDefaultCss() {
     const host = window.location.host;
     if (host.indexOf('127.0.0.1') || host.indexOf('localhost')) {
-        loadRemoteStyleByUrl('./fh-default.css');
+        loadRemoteStyleByUrl(`./fh-default.css`);
     } else {
-        loadRemoteStyleByUrl(hostUrl + 'fh-default.css');
+        loadRemoteStyleByUrl(hostUrl + `fh-default-${LIB_VERSION}.css`);
     }
 }
 

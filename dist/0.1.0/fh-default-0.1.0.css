@@ -1,0 +1,13 @@
+.fh-main {
+    position: fixed;
+    z-index: 99;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+    border: 1px solid #000;
+    padding: 10px;
+}
+
+.fh-link {
+    color: #000;
+}
