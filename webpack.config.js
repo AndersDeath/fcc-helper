@@ -8,7 +8,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, './build'),
-    filename: "fh.js" // <--- Will be compiled to this single file
+    filename: "fh.js"
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
